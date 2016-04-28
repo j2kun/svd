@@ -24,3 +24,12 @@ Sigma = np.vstack([
 ])
 
 print(np.round(movieRatings - np.dot(U, np.dot(Sigma, V)), decimals=10))
+
+
+U, singularValues, V = svd(movieRatings, full_matrices=False)
+print(U)
+print(singularValues)
+print(V)
+
+Sigma = np.diag(singularValues)
+print(np.round(movieRatings - np.dot(U, np.dot(Sigma, V)), decimals=10))
