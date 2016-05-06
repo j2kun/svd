@@ -1,9 +1,21 @@
 import json
+import os
+
 from nltk.corpus import stopwords, wordnet
 from nltk.stem.wordnet import WordNetLemmatizer
 from nltk import pos_tag, word_tokenize
 
-from .loader import loadRaw
+
+def loadRaw(directory):
+    documents = dict()
+
+    for filename in os.listdir(directory):
+        if filename[-3:] == 'txt':
+            with open(os.path.join(directory, filename), 'r') as infile:
+                documents[filename] = infile.read()
+
+    return documents
+
 
 allWords = None
 

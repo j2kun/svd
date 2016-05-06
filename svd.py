@@ -18,7 +18,11 @@ def svd_1d(A, epsilon=1e-10):
     x = randomUnitVector(m)
     lastV = None
     currentV = x
-    B = np.dot(A.T, A)
+
+    if n > m:
+        B = np.dot(A.T, A)
+    else:
+        B = np.dot(A, A.T)
 
     iterations = 0
     while True:
@@ -32,28 +36,32 @@ def svd_1d(A, epsilon=1e-10):
             return currentV
 
 
-def svd(A, epsilon=1e-10):
+def svd(A, k=None, epsilon=1e-10):
+    '''
+        Compute the singular value decomposition of a matrix A
+        using the power method. A is the input matrix, and k
+        is the number of singular values you wish to compute.
+        If k is None, this computes the full-rank decomposition.
+    '''
     n, m = A.shape
     svdSoFar = []
+    if k is None:
+        k = min(n, m)
 
-    for i in range(m):
+    for i in range(k):
         matrixFor1D = A.copy()
 
         for singularValue, u, v in svdSoFar[:i]:
-            print(matrixFor1D)
             matrixFor1D -= singularValue * np.outer(u, v)
 
-        print(matrixFor1D)
         v = svd_1d(matrixFor1D, epsilon=epsilon)  # next singular vector
         u_unnormalized = np.dot(A, v)
         sigma = norm(u_unnormalized)  # next singular value
         u = u_unnormalized / sigma
 
-        print(sigma)
         svdSoFar.append((sigma, u, v))
 
     singularValues, us, vs = [np.array(x) for x in zip(*svdSoFar)]
-
     return singularValues, us.T, vs
 
 
