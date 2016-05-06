@@ -5,6 +5,7 @@
 import json
 import numpy as np
 from collections import Counter
+from scipy.cluster.vq import kmeans2
 
 # from numpy.linalg import svd
 from svd import svd
@@ -66,7 +67,7 @@ def makeDocumentTermMatrix(data):
 
 
 def cluster(vectors):
-    pass
+    return kmeans2(vectors, k=len(vectors[0]))
 
 
 def allWords(data):
@@ -91,5 +92,16 @@ if __name__ == "__main__":
     projectedDocuments = np.dot(matrix.T, U)
     projectedWords = np.dot(matrix, V.T)
 
-    documentClustering = cluster(projectedDocuments)
-    wordClustering = cluster(projectedWords)
+    documentCenters, documentClustering = cluster(projectedDocuments)
+    wordCenters, wordClustering = cluster(projectedWords)
+
+    wordClusters = [
+        [indexToWord[i] for (i, x) in enumerate(wordClustering) if x == j]
+        for j in range(len(set(wordClustering)))
+    ]
+
+    documentClusters = [
+        [indexToDocument[i]['text']
+         for (i, x) in enumerate(documentClustering) if x == j]
+        for j in range(len(set(documentClustering)))
+    ]
