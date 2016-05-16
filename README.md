@@ -2,6 +2,10 @@
 
 An implementation of the greedy algorithm for SVD, using the power method for the 1-dimensional case.
 
+For the post [Singular Value Decomposition Part 2: Theorem, Proof, Algorithm](http://jeremykun.com/2016/05/16/singular-value-decomposition-part-2-theorem-proof-algorithm/)
+
+And the first (motivational) post in the series: [Singular Value Decomposition Part 1: Perspectives on Linear Algebra](https://jeremykun.com/2016/04/18/singular-value-decomposition-part-1-perspectives-on-linear-algebra/)
+
 # Setup
 
 Run the following to set up all the requirements needed to run the code in this repository.
