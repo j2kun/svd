@@ -55,7 +55,7 @@ def svd(A, k=None, epsilon=1e-10):
         for singularValue, u, v in svdSoFar[:i]:
             matrixFor1D -= singularValue * np.outer(u, v)
 
-        if n >= m:
+        if n > m:
             v = svd_1d(matrixFor1D, epsilon=epsilon)  # next singular vector
             u_unnormalized = np.dot(A, v)
             sigma = norm(u_unnormalized)  # next singular value
