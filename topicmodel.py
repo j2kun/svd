@@ -105,3 +105,17 @@ if __name__ == "__main__":
          for (i, x) in enumerate(documentClustering) if x == j]
         for j in range(len(set(documentClustering)))
     ]
+
+    def findWord(x):
+        return [i for i in indexToWord if indexToWord[i] == x][0]
+
+    def findClosest(x):
+        import heapq
+        similarities = [np.dot(x, y) / (np.linalg.norm(x) * np.linalg.norm(y)) for y in projectedWords]
+        return [(indexToWord[z[0]], z[0], z[1])
+                for z in heapq.nlargest(10, enumerate(similarities), key=lambda x: x[1])]
+
+    def shift(w1, minusW, plusW):
+        i1, i2, i3 = findWord(w1), findWord(minusW), findWord(plusW)
+        v = projectedWords[i1] - projectedWords[i2] + projectedWords[i3]
+        return findClosest(v)
