@@ -20,3 +20,7 @@ $ bash setup.sh   # downloads relevant NLP corpora from nltk
 Then run `python3 topicmodel.py` for the main topic-model routine, `svd.py` for the core svd algorithm, and `demo.py` for the numpy examples from the post.
 
 When finished, run `$ deactivate` to exit the virtual environment.
+
+# Trying out gitpod.io
+
+wow, such cool
